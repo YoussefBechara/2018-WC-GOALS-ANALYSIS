@@ -1,0 +1,142 @@
+file = open("goals.py","r")
+import time
+
+
+def menu():
+    print("*********************************************")
+    print("*                                           *")
+    print("*      2018 World Cup: Goals Analysis       *")
+    print("*                                           *")
+    print("*********************************************")
+    print("")
+    print("> Select an option:")
+    print("       > A: Total number of goals scored by a given country")
+    print("       > B: Total number of goals scored by a given player")
+    print("       > C: List the name of all the players who scored for a given country")
+    print("       > D: Total number of goals by all countries")
+    print("       > E: Total number of goals scored during the first half (45 minutes)")
+    print("       > F: Total number of goals scored during the second half (45 minutes to 90 minutes)")
+    print("       > G: Total number of goals scored during extra time (after 90 minutes of play)")
+    print("       > X: Exit")
+    print("")
+
+
+# A Procedure to count the number of goals scored by a given country during the 2018 world cup
+def a():
+    userInput = input("> Enter country:").title()
+
+    file = open("goals.txt", "r")
+    goals = 0
+    for line in file:
+        data = line.split(";")
+        player = data[0]
+        country = data[1]
+        minutes = int(data[2])
+        if country == userInput:
+            goals = goals + 1
+    file.close()
+    print("\n> " + userInput + " scored " + str(goals) + " goal(s) in the 2018 world cup.")
+
+
+def b():
+    userInput = input("> Enter player:").title()
+
+    file = open("goals.py", "r")
+    goals = 0
+    for line in file:
+        data = line.split(";")
+        player = data[0]
+        country = data[1]
+        minutes = int(data[2])
+        if player == userInput:
+            goals = goals + 1
+    file.close()
+    print(f"The player {userInput} scored {goals} for {country} ")
+
+
+def c():
+    userInput = input("> Enter country:").title()
+
+    file = open("goals.py", "r")
+    goals = 0
+    players = ''
+    for line in file:
+        data = line.split(";")
+        player = data[0]
+        country = data[1]
+        minutes = int(data[2])
+        if country == userInput:
+            players += f'{player},'
+    file.close()
+    print(f"The player(s) who scored for {userInput} are: {players} ")
+
+
+def d():
+    file = open("goals.py", "r")
+    goals = 0
+    players = ''
+    for line in file:
+        goals += 1
+    file.close()
+    print(f"{goals} goals have been scored in the 2018 world cup")
+
+
+def e():
+    file = open("goals.py", "r")
+    goals = 0
+    players = ''
+    for line in file:
+        data = line.split(";")
+        minutes = int(data[2])
+        if minutes <= 45:
+            goals += 1
+    file.close()
+    print(f"{goals} goals have been scored in the first half")
+
+
+def f():
+    file = open("goals.py", "r")
+    goals = 0
+    players = ''
+    for line in file:
+        data = line.split(";")
+        minutes = int(data[2])
+        if (minutes > 45) and ( minutes <= 90):
+            goals += 1
+    file.close()
+    print(f"{goals} goals have been scored in the second half")
+
+
+def g():
+    file = open("goals.py", "r")
+    goals = 0
+    players = ''
+    for line in file:
+        data = line.split(";")
+        minutes = int(data[2])
+        if minutes > 90:
+            goals += 1
+    file.close()
+    print(f"{goals} goals have been scored in the overtime")
+##################### Main Program Starts Here ##############################
+userChoice = ""
+while userChoice != "X":
+    menu()
+    userChoice = input("> Select an option from the menu (A to G) or X to exit:").upper()
+    if userChoice == "A":
+        a()
+    elif userChoice == "B":
+        b()
+    elif userChoice == "C":
+        c()
+    elif userChoice == "D":
+        d()
+    elif userChoice == "E":
+        e()
+    elif userChoice == "F":
+        f()
+    elif userChoice == "G":
+        g()
+    time.sleep(3)
+    print("\n\n\n")
+print("Good bye!")
